@@ -41,6 +41,13 @@ Then, install requirements files (virtual env must be activated)
 
 ## Run Program
 ```bash
-$ python nQueens.py
+(env)$ python nQueens.py
+
+```
+
+
+## Run Tests
+```bash
+(env)$ python -m pytest tests.py
 
 ```

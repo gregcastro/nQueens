@@ -12,49 +12,54 @@ def solution_exists(N):
 
 
 def calculate(N):
+    global sol, first_time
+    sol = 0
+    first_time = False
     queens_positions = [-1] * N
     place_queen(N, queens_positions, 0)
-    print("Number of solutions: ", sol)
 
     if first_time:
         queen_case = session.query(QueenCase).filter_by(n=N).first()
         queen_case.number_of_solutions = sol
         session.commit()
-    else:
+    elif not solution_exists(N):
         queen_case = QueenCase(n=N, number_of_solutions=sol)
         session.add(queen_case)
         session.commit()
+
+    return sol
         
 
 def place_queen(N, queens_positions, current_row):
-        if current_row == N:
-            solution = str(queens_positions).strip('[]')
-            solution = solution.replace(' ', '')
+    if current_row == N:
+        solution = str(queens_positions).strip('[]')
+        solution = solution.replace(' ', '')
 
-            if not solution_exists(N):
-                global first_time
-                first_time = True
-                queen_case = QueenCase(n=N, number_of_solutions=0)
-                session.add(queen_case)
-                session.commit()
+        if not solution_exists(N):
+            global first_time
+            first_time = True
+            queen_case = QueenCase(n=N, number_of_solutions=0)
+            session.add(queen_case)
+            session.commit()
 
-            if first_time:
-                query = session.query(QueenCase).filter_by(n=N)
-                for x in query:
-                    queen_case_id = x.id
-                
-                sol_obj = Solution(queen_case_id=queen_case_id, solution=solution)
-                session.add(sol_obj)
-                session.commit()
+        if first_time:
+            query = session.query(QueenCase).filter_by(n=N)
+            for x in query:
+                queen_case_id = x.id
+            
+            sol_obj = Solution(queen_case_id=queen_case_id, solution=solution)
+            session.add(sol_obj)
+            session.commit()
 
-            global sol
-            sol += 1
+        global sol
+        sol += 1
 
-        else:
-            for column in range(0, N):
-                if verify(queens_positions, current_row, column):
-                    queens_positions[current_row] = column
-                    place_queen(N, queens_positions, current_row + 1)
+    else:
+        for column in range(0, N):
+            if verify(queens_positions, current_row, column):
+                queens_positions[current_row] = column
+                place_queen(N, queens_positions, current_row + 1)
+
 
 def verify(pos, rows, column):
         for i in range(0, rows):
@@ -63,10 +68,11 @@ def verify(pos, rows, column):
         return True
 
 
-
 def main():
     N = int(input('N: '))
-    calculate(N)
+    solutions = calculate(N)
+    print("Number of solutions: ", solutions)
+
 
 if __name__ == "__main__":
     main()
