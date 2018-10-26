@@ -1,5 +1,6 @@
 from nQueens import calculate
 
+
 class TestNQueens(object):
     def test_one(self):
         assert calculate(1) == 1

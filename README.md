@@ -1,53 +1,80 @@
+
 # nQueens
 
-### Setup database
+## Dependencies
++ Git
++ Docker version 18.03.1-ce
++ Docker-compose version 1.21.2
 
-Change the password of postgres user
+## Install instructions
 
-```SQL
-ALTER USER postgres WITH PASSWORD 'new_password';
+Install Docker (https://docs.docker.com/install/#server)
+
+Install Docker-compose (https://docs.docker.com/compose/install/#prerequisites)
+
+## Download && Build the application containers
+
+Clone repository.
+
+Build containers (assuming your docker is installed as root):
+
+```bash
+cd CLONE_DIRECTORY && sudo docker-compose build
 
 ```
 
-Creating database
+## Run the application for the first time
 
+Run the following command:
+
+```bash
+sudo docker-compose up -d
+
+```
+
+
+Open postgresql
+```bash
+sudo docker-compose exec --user postgres appdb bash
+psql
+
+```
+
+Change the password of postgres user and create database
 ```SQL
+ALTER USER postgres WITH PASSWORD 'db_pass';
 CREATE DATABASE nqueens;
+\q
+exit
 
 ```
 
-### Creating local settings file
-Create a new file called *local_settings.py* in /your_path/nQueens and copy the information from the *local_settings_template.py* file into it.
+After this, whenever you want to run the application just execute from the root directory.
+```bash
+sudo docker-compose up -d
+
+```
+
+
+## Creating local settings file
+Create a new file called *local_settings.py* in /src/nQueens and copy the information from the *local_settings_template.py* file into it.
 
 Change the information corresponding to your local machine.
 
-
-### Virtual Enviroment
-
-First, you need to create and activate a virtualenv
-```bash
-$ virtualenv env
-$ source env/bin/activate
-
-```
-
-Then, install requirements files (virtual env must be activated)
+## Run Python App
+Type the following command
 
 ```bash
-(env)$ pip install -r requirements.txt
+sudo docker-compose exec web bash
+python nQueens.py
 
 ```
-
-
-## Run Program
-```bash
-(env)$ python nQueens.py
-
-```
-
 
 ## Run Tests
 ```bash
-(env)$ python -m pytest tests.py
+sudo docker-compose exec web bash
+python -m pytest tests.py
 
 ```
+
+
