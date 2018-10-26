@@ -1,9 +1,10 @@
 from sqlalchemy.orm import sessionmaker
+from settings import db_password, db_user, db_name
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, String, Integer, ForeignKey
 
 
-db_string = "postgres://postgres:123456@localhost/nqueens"
+db_string = "postgres://"+db_user+":"+db_password+"@localhost/"+db_name
 
 db = create_engine(db_string)
 base = declarative_base()
