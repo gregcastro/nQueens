@@ -10,8 +10,7 @@ before_install:
 before_script:
   - docker-compose build
   - docker-compose up -d
-  - sudo docker-compose exec --user postgres appdb bash
-  - psql
+  - docker-compose exec --user postgres appdb bash -c 'psql'
   - ALTER USER postgres WITH PASSWORD 'db_pass';
   - CREATE DATABASE nqueens;
   - \q
