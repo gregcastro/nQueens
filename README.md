@@ -19,7 +19,8 @@ Clone repository.
 Build containers (assuming your docker is installed as root):
 
 ```bash
-cd CLONE_DIRECTORY && sudo docker-compose build
+cd CLONE_DIRECTORY
+sudo docker-compose build
 
 ```
 
@@ -57,7 +58,7 @@ sudo docker-compose up -d
 
 
 ## Creating local settings file
-Create a new file called *local_settings.py* in /src/nQueens and copy the information from the *local_settings_template.py* file into it.
+Create a new file called *local_settings.py* in nQueens/src/ and copy the information from the *local_settings_template.py* file into it.
 
 Change the information corresponding to your local machine.
 
