@@ -34,12 +34,3 @@ class TestNQueens(object):
 
     def test_eleven(self):
         assert calculate(11) == 2680
-
-    def test_twelve(self):
-        assert calculate(12) == 14200
-
-    def test_thirteen(self):
-        assert calculate(13) == 73712
-
-    def test_fourteen(self):
-        assert calculate(14) == 365596

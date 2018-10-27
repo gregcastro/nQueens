@@ -70,11 +70,22 @@ python nQueens.py
 
 ```
 
+Or you can just type
+
+```bash
+sudo docker-compose exec web bash -c 'python nQueens.py'
+
+```
+
 ## Run Tests
 ```bash
 sudo docker-compose exec web bash
 python -m pytest tests.py
 
 ```
+Or you can just type
 
+```bash
+sudo docker-compose exec web bash -c 'python -m pytest tests.py'
 
+```
